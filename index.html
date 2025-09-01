@@ -109,15 +109,19 @@
         <link rel="stylesheet" href="static/styles.css">
     </head>
     <style>
-        span,p {
+        span,
+        p {
             font-family: 'TodaySansNowPro', sans-serif !important;
         }
 
-        h1,h2,h3,h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'TodaySansNowPro', sans-serif !important;
         }
 
-        body{
+        body {
             font-family: 'TiemposFine', sans-serif !important;
         }
     </style>
@@ -337,6 +341,313 @@
            Mock Data (emotionally gentle)
         --------------------------------*/
         const MOCK_LABS = [
+            // demo generated with prompt-- first item
+            {
+                "reportId": "RPT-256",
+                "patientId": "ABCD",
+                "panel": "Urinalysis with Reflex to Culture",
+                "collectedOn": "2025-07-28",
+                "status": "Ready",
+                "priority": "High",
+                "summary": "The urinalysis reveals significant findings consistent with a urinary tract infection, characterized by critical elevations in nitrites, leukocyte esterase, and white blood cells. Additionally, elevated blood, protein, and a turbid appearance further support this clinical picture.",
+                "markers": [
+                    {
+                        "name": "GLUCOSE UA",
+                        "value": "NEGATIVE",
+                        "unit": "(mg/dL)",
+                        "ref": "NEGATIVE",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "BILIRUBIN",
+                        "value": "NEGATIVE",
+                        "unit": "",
+                        "ref": "NEGATIVE",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "KETONES",
+                        "value": "NEGATIVE",
+                        "unit": "(mg/dL)",
+                        "ref": "NEGATIVE",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "SPECIFIC GRAVITY",
+                        "value": 1.017,
+                        "unit": "(SG units)",
+                        "ref": "1.005-1.030",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "BLOOD",
+                        "value": "SMALL",
+                        "unit": "",
+                        "ref": "NEGATIVE",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "PH",
+                        "value": 5.5,
+                        "unit": "(pH units)",
+                        "ref": "5.0-7.0",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "PROTEIN",
+                        "value": 30,
+                        "unit": "(mg/dL)",
+                        "ref": "NEGATIVE",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "UROBILINOGEN",
+                        "value": "NEGATIVE",
+                        "unit": "(mg/dL)",
+                        "ref": "NEGATIVE",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "NITRITE",
+                        "value": "POSITIVE",
+                        "unit": "",
+                        "ref": "NEGATIVE",
+                        "flag": "Critical High"
+                    },
+                    {
+                        "name": "LEUKOCYTE ESTERASE",
+                        "value": "LARGE",
+                        "unit": "",
+                        "ref": "NEGATIVE",
+                        "flag": "Critical High"
+                    },
+                    {
+                        "name": "COLOR",
+                        "value": "YELLOW",
+                        "unit": "",
+                        "ref": "YELLOW",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "TRANSPARENCY",
+                        "value": "TURBID",
+                        "unit": "",
+                        "ref": "CLEAR",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "RBC'S",
+                        "value": "6-10",
+                        "unit": "(RBC/HPF)",
+                        "ref": "0-2",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "WBC'S",
+                        "value": ">50",
+                        "unit": "(WBC/HPF)",
+                        "ref": "0-5",
+                        "flag": "Critical High"
+                    },
+                    {
+                        "name": "White Blood Cell Clump",
+                        "value": "MANY",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "BACTERIA",
+                        "value": "FEW",
+                        "unit": "",
+                        "ref": "NONE/FEW",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "YEAST",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE/FEW",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "SQUAMOUS CELLS",
+                        "value": "MODERATE",
+                        "unit": "",
+                        "ref": "NONE/FEW",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "Transitional Cells",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE/FEW",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Renal Cells",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "FAT",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "MUCOUS",
+                        "value": "MANY",
+                        "unit": "",
+                        "ref": "NOT ESTABLISHED",
+                        "flag": "High"
+                    },
+                    {
+                        "name": "Red Blood Cell Clump",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "SPERM",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "TRICHOMONAS",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Hyaline Cast",
+                        "value": "Not Found",
+                        "unit": "(HYAL/LPF)",
+                        "ref": "0-2",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Epithelial Cast",
+                        "value": "Not Found",
+                        "unit": "(EPIC/LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "White Blood Cell Cast",
+                        "value": "Not Found",
+                        "unit": "(WBCT\\LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Red Blood Cell Cast",
+                        "value": "Not Found",
+                        "unit": "(RBCT\\LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Granular Cast",
+                        "value": "Not Found",
+                        "unit": "(GRAN/LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Cellular Cast",
+                        "value": "Not Found",
+                        "unit": "(CELL/LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Broad Cast",
+                        "value": "Not Found",
+                        "unit": "(BROAD/LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Fatty Cell",
+                        "value": "Not Found",
+                        "unit": "(FATC/LPF)",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Triple Phosphate Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Calcium Oxalate Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Calcium Phosphate Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Calcium Carbonate Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Uric Acid Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Leucine Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Cystine Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Tyrosine Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    },
+                    {
+                        "name": "Amorphous Crystal",
+                        "value": "Not Found",
+                        "unit": "",
+                        "ref": "NONE SEEN",
+                        "flag": "Normal"
+                    }
+                ],
+                "notes": "It is highly recommended to follow up with your primary care physician promptly to discuss these findings and determine the appropriate course of treatment for a suspected urinary tract infection. Adherence to medical advice will be important for your health."
+            },
             {
                 "reportId": "RPT-1001",
                 "patientId": "ABCD",
@@ -703,7 +1014,7 @@
         //     alert("In a real app, this would generate a PDF or trigger your browser's print dialog.");
         // }
         function printResult() {
-                    window.print();
+            window.print();
         }
 
         /* ------------------------------
