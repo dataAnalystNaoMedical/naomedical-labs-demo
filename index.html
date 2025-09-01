@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Labs For Patient</title>
+    <!-- use this one -->
+    <!-- dubeya@naomedical.com -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn .35s ease-out both
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* Calm focus ring using brand blue */
+        .focus-calm:focus {
+            outline: 3px solid rgba(30, 54, 95, .22);
+            outline-offset: 2px
+        }
+
+        .my-logo-spin {
+            animation: spin 3s linear infinite;
+            transform-origin: center;
+        }
+
+        /* Bonus: A nice UI touch to pause the animation on hover */
+        .my-logo-spin:hover {
+            animation-play-state: paused;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 640px) {
+            .mobile-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .mobile-modal-padding {
+                padding: 1.25rem;
+            }
+
+            .mobile-modal-margin {
+                margin: 0.5rem;
+            }
+
+            .mobile-text-sm {
+                font-size: 0.875rem;
+            }
+
+            .mobile-text-base {
+                font-size: 1rem;
+            }
+
+            .mobile-icon-sm {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            .mobile-icon-md {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+
+        #labsListBody {
+            max-height: 440px;
+            overflow-y: scroll;
+        }
+
+        #resultBody {
+
+            max-height: 420px;
+            overflow-y: scroll;
+
+        }
+
+        #result-modal {
+            max-width: 99%;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Media query for better control */
+        @media screen and (max-width: 372px) {
+            #result-modal {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white text-[#475569] antialiased">
+    <!-- App Shell -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
+            <div class="flex items-center gap-3">
+                <!-- Brand Mark -->
+                <div class="h-9 w-9 rounded-2xl bg-[#1e365f] grid place-content-center shadow-sm mobile-icon-md">
+                    <!-- Microscope Icon -->
+                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                    <svg viewBox="0 0 119 125" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <rect width="119" height="125" fill="transparent"></rect>
+                        <g fill="#FFFFFF">
+                            <!-- five half spokes -->
+                            <rect x="58.386" y="56.090" width="48.137" height="14.928"
+                                transform="rotate(17.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.850" width="48.998" height="17.408"
+                                transform="rotate(72.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.657" width="48.295" height="17.794"
+                                transform="rotate(131.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="53.974" width="48.151" height="19.159"
+                                transform="rotate(190.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.623" width="49.030" height="17.861"
+                                transform="rotate(252.000, 58.386, 63.554)"></rect>
+                            <!-- dot -->
+                            <circle cx="86.871" cy="34.494" r="10.525"></circle>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold tracking-tight mobile-text-base">My Lab Results</h1>
+                    <p class="text-sm text-slate-500 mobile-text-sm">Calm, clear, and reassuring.</p>
+                </div>
+            </div>
+
+            <button id="primaryAction" class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#1e365f] px-4 py-2 text-white shadow-sm transition
+               hover:brightness-110 active:brightness-[1.15] focus-calm" onclick="openInfo()">
+                <!-- Info icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -ml-0.5 mobile-icon-sm" viewBox="0 0 24 24"
+                    fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm.75 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 10.5h2v7h-2v-7z" />
+                </svg>
+                How this works
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6 mobile-padding">
+        <!-- Greeting card -->
+        <section class="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 md:p-5 mb-6">
+            <div class="flex items-start gap-3">
+                <!-- Blood drop icon -->
+                <div class="h-10 w-10 rounded-2xl bg-[#4da886]/15 grid place-content-center mobile-icon-md">
+                    <svg class="h-5 w-5 text-[#4da886] mobile-icon-sm" fill="#000000" viewBox="0 0 24 24"
+                        id="hospital-icon" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path id="secondary" d="M9,7v4m2-2H7m4,6H7v6h4Z"
+                                style="fill: none; stroke: #2ca9bc; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+                            </path>
+                            <path id="primary"
+                                d="M15,4a1,1,0,0,0-1-1H4A1,1,0,0,0,3,4V21H15Zm0,0a1,1,0,0,0-1-1H4A1,1,0,0,0,3,4V21H15Zm0,17h6V7a1,1,0,0,0-1-1H15Zm0,0h6V7a1,1,0,0,0-1-1H15Z"
+                                style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-semibold mobile-text-base">Welcome back</h2>
+                    <p class="text-sm text-slate-600 mobile-text-sm">Your recent lab reports appear below. Tap a card to
+                        view calm,
+                        plain-language results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Labs container -->
+        <section id="labsContainer" class="grid gap-4 sm:gap-5">
+            <!-- Injected list -->
+        </section>
+    </main>
+
+    <!-- ====== MODALS ====== -->
+
+    <!-- Wait Modal -->
+    <div id="waitModal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="waitTitle">
+        <div class="absolute inset-0 bg-slate-900/25 backdrop-blur-sm"></div>
+        <div
+            class="relative mx-auto mt-28 max-w-md rounded-2xl bg-white p-6 shadow-xl fade-in mobile-modal-margin mobile-modal-padding">
+            <div class="flex items-center gap-3">
+                <span class="relative inline-flex h-8 w-8 bg-[#FFFFFF] mobile-icon-md">
+                    <!-- Ping effect -->
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-white/30 animate-ping"></span>
+                    <!-- Spinner -->
+                    <svg class="animate-spin [animation-duration:2s]" viewBox="0 0 119 125"
+                        xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <rect width="119" height="125" fill="transparent"></rect>
+                        <g fill="#1E365F">
+                            <!-- five half spokes -->
+                            <rect x="58.386" y="56.090" width="48.137" height="14.928"
+                                transform="rotate(17.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.850" width="48.998" height="17.408"
+                                transform="rotate(72.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.657" width="48.295" height="17.794"
+                                transform="rotate(131.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="53.974" width="48.151" height="19.159"
+                                transform="rotate(190.000, 58.386, 63.554)"></rect>
+                            <rect x="58.386" y="54.623" width="49.030" height="17.861"
+                                transform="rotate(252.000, 58.386, 63.554)"></rect>
+                            <!-- dot -->
+                            <circle cx="86.871" cy="34.494" r="10.525"></circle>
+                        </g>
+                    </svg>
+                </span>
+
+                <div>
+                    <h3 id="waitTitle" class="font-semibold mobile-text-base">Please wait…</h3>
+                    <p id="waitMessage" class="text-sm text-slate-600 mobile-text-sm">Preparing your reports securely.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Labs List Modal (div screen) -->
+    <div id="labs-list" class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true"
+        aria-labelledby="labsListTitle">
+        <div class="absolute inset-0 bg-slate-900/20 backdrop-blur-sm"></div>
+        <div class="relative mx-auto my-8 max-w-3xl rounded-2xl bg-white shadow-xl fade-in mobile-modal-margin">
+            <div class="flex items-center justify-between border-b border-slate-200 p-4 md:p-5 mobile-modal-padding">
+                <h3 id="labsListTitle" class="text-base md:text-lg font-semibold mobile-text-base">Your Lab Reports</h3>
+                <button
+                    class="rounded-xl px-3 py-1.5 text-sm text-white bg-[#1e365f] hover:brightness-110 transition focus-calm mobile-text-sm"
+                    onclick="hideModal('labs-list')">
+                    Close
+                </button>
+            </div>
+            <div id="labsListBody" class="p-4 md:p-5 grid gap-3 mobile-modal-padding">
+                <!-- Injected list tiles -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true"
+        aria-labelledby="resultTitle">
+        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-sm"></div>
+        <div class="relative mx-auto my-6 max-w-2xl rounded-2xl bg-white shadow-xl fade-in mobile-modal-margin">
+            <div class="flex items-center justify-between border-b border-slate-200 p-4 md:p-5 mobile-modal-padding">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-xl bg-[#4da886]/15 grid place-content-center mobile-icon-md">
+                        <!-- Report icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4da886] mobile-icon-sm"
+                            viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 id="resultTitle" class="font-semibold mobile-text-base">Report</h3>
+                        <p id="resultMeta" class="text-sm text-slate-600 mobile-text-sm"></p>
+                    </div>
+                </div>
+                <button
+                    class="rounded-xl px-3 py-1.5 text-sm text-white bg-[#1e365f] hover:brightness-110 transition focus-calm mobile-text-sm"
+                    onclick="hideModal('result-modal')">
+                    Close
+                </button>
+            </div>
+
+            <div id="resultBody" class="p-4 md:p-5 grid gap-4 mobile-modal-padding">
+                <!-- Injected result -->
+            </div>
+
+            <div class="border-t border-slate-200 p-4 md:p-5 flex flex-col space-y-4 mobile-modal-padding">
+                <div class="flex flex-col items-center space-y-3 text-center">
+                    <!-- Shield icon with better spacing -->
+                    <div class="flex items-center justify-center gap-2 text-xs text-slate-600 mobile-text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mobile-icon-sm text-[#4da886]"
+                            viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2l7 4v6c0 5-3.5 9.5-7 10-3.5-.5-7-5-7-10V6l7-4z"></path>
+                        </svg>
+                        <span>HIPAA-style privacy practices simulated for demo.</span>
+                    </div>
+
+                    <!-- Button with full width on mobile -->
+                    <button
+                        class="w-full max-w-xs rounded-xl px-4 py-3 text-sm font-medium text-white bg-[#4da886] hover:brightness-110 transition focus-calm mobile-text-sm shadow-sm"
+                        onclick="printResult()">
+                        Print / Save PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating open list button (mobile-first) -->
+    <button class="fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-2xl bg-[#1e365f] px-4 py-3 text-white shadow-lg transition
+           hover:brightness-110 active:scale-[.99] focus-calm" onclick="showModal('labs-list')">
+        <!-- List icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-0.5 mobile-icon-sm" viewBox="0 0 24 24"
+            fill="currentColor" aria-hidden="true">
+            <path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z" />
+        </svg>
+        <span class="mobile-text-sm">Labs</span>
+    </button>
+
+    <script>
+        /* ------------------------------
+           Mock Data (emotionally gentle)
+        --------------------------------*/
+        const MOCK_LABS = [
+    {
+        "reportId": "RPT-1001",
+        "patientId": "ABCD",
+        "panel": "Complete Blood Count (CBC)",
+        "collectedOn": "2025-08-18",
+        "status": "Ready",
+        "priority": "Low",
+        "summary": "Most values are within the expected range.",
+        "markers": [
+            { "name": "WBC", "value": 6.2, "unit": "×10^3/µL", "ref": "4 - 11", "flag": "Normal" },
+            { "name": "RBC", "value": 4.8, "unit": "×10^6/µL", "ref": "4.2 - 5.9", "flag": "Normal" },
+            { "name": "Hemoglobin", "value": 12.9, "unit": "g/dL", "ref": "12 - 17.5", "flag": "Normal" },
+            { "name": "Platelets", "value": 150, "unit": "×10^3/µL", "ref": "150 - 450", "flag": "Normal" }
+        ],
+        "notes": "Everything looks reassuring today."
+    },
+    {
+        "reportId": "RPT-1002",
+        "patientId": "ABCD",
+        "panel": "Lipid Profile",
+        "collectedOn": "2025-08-11",
+        "status": "Ready",
+        "priority": "Medium",
+        "summary": "Cholesterol slightly above target. Lifestyle tweaks can help.",
+        "markers": [
+            { "name": "Total Cholesterol", "value": 205, "unit": "mg/dL", "ref": "< 200", "flag": "Slightly high" },
+            { "name": "HDL", "value": 58, "unit": "mg/dL", "ref": "≥ 40", "flag": "Normal" },
+            { "name": "LDL", "value": 132, "unit": "mg/dL", "ref": "< 100", "flag": "Moderately high" },
+            { "name": "Triglycerides", "value": 138, "unit": "mg/dL", "ref": "< 150", "flag": "Normal" }
+        ],
+        "notes": "Consider gentle daily movement and balanced meals. Your clinician can personalize guidance."
+    },
+    {
+        "reportId": "RPT-1003",
+        "patientId": "ABCD",
+        "panel": "Basic Metabolic Panel (BMP)",
+        "collectedOn": "2025-07-30",
+        "status": "Ready",
+        "priority": "Low",
+        "summary": "Kidney and electrolyte values are steady.",
+        "markers": [
+            { "name": "Glucose (Fasting)", "value": 92, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
+            { "name": "Sodium", "value": 139, "unit": "mmol/L", "ref": "135 - 145", "flag": "Normal" },
+            { "name": "Potassium", "value": 4.3, "unit": "mmol/L", "ref": "3.5 - 5.1", "flag": "Normal" },
+            { "name": "Creatinine", "value": 0.91, "unit": "mg/dL", "ref": "0.6 - 1.3", "flag": "Normal" }
+        ],
+        "notes": "Keep up your hydration routine."
+    },
+    {
+        "reportId": "RPT-1004",
+        "patientId": "ABCD",
+        "panel": "HbA1c",
+        "collectedOn": "2025-06-22",
+        "status": "Ready",
+        "priority": "High",
+        "summary": "A1c suggests glucose has been higher than desired recently.",
+        "markers": [
+            { "name": "HbA1c", "value": 7.3, "unit": "%", "ref": "< 5.7", "flag": "High" }
+        ],
+        "notes": "This result deserves attention, but there are many supportive steps. Your care team can help craft a gentle plan."
+    },
+    {
+        "reportId": "RPT-1005",
+        "patientId": "EFGH",
+        "panel": "Thyroid Function Test",
+        "collectedOn": "2025-08-25",
+        "status": "Ready",
+        "priority": "Medium",
+        "summary": "TSH is elevated, suggesting a potential underactive thyroid.",
+        "markers": [
+            { "name": "TSH", "value": 6.8, "unit": "mIU/L", "ref": "0.4 - 4.0", "flag": "High" },
+            { "name": "Free T4", "value": 0.9, "unit": "ng/dL", "ref": "0.8 - 1.8", "flag": "Normal" }
+        ],
+        "notes": "Follow-up testing may be recommended to confirm diagnosis. Your clinician will discuss next steps."
+    },
+    {
+        "reportId": "RPT-1006",
+        "patientId": "IJKL",
+        "panel": "Liver Function Test (LFT)",
+        "collectedOn": "2025-08-20",
+        "status": "Ready",
+        "priority": "Low",
+        "summary": "Liver enzymes are within normal limits.",
+        "markers": [
+            { "name": "ALT (SGPT)", "value": 25, "unit": "U/L", "ref": "7 - 56", "flag": "Normal" },
+            { "name": "AST (SGOT)", "value": 22, "unit": "U/L", "ref": "10 - 40", "flag": "Normal" },
+            { "name": "Bilirubin, Total", "value": 0.8, "unit": "mg/dL", "ref": "0.1 - 1.2", "flag": "Normal" }
+        ],
+        "notes": "Results indicate healthy liver function at this time."
+    },
+    {
+        "reportId": "RPT-1007",
+        "patientId": "ABCD",
+        "panel": "Vitamin D, 25-Hydroxy",
+        "collectedOn": "2025-05-15",
+        "status": "Ready",
+        "priority": "Medium",
+        "summary": "Vitamin D levels are insufficient.",
+        "markers": [
+            { "name": "Vitamin D, 25-OH", "value": 18, "unit": "ng/mL", "ref": "30 - 100", "flag": "Low" }
+        ],
+        "notes": "Supplementation may be beneficial. Please consult with your provider for appropriate dosage."
+    },
+    {
+        "reportId": "RPT-1008",
+        "patientId": "MNOP",
+        "panel": "Iron Panel",
+        "collectedOn": "2025-08-01",
+        "status": "Pending",
+        "priority": "Low",
+        "summary": "Results are not yet available.",
+        "markers": [],
+        "notes": "The sample is currently being processed by the lab."
+    },
+    {
+        "reportId": "RPT-1009",
+        "patientId": "EFGH",
+        "panel": "Comprehensive Metabolic Panel (CMP)",
+        "collectedOn": "2025-07-10",
+        "status": "Ready",
+        "priority": "Low",
+        "summary": "All metabolic markers, including liver and kidney function, are within normal ranges.",
+        "markers": [
+            { "name": "Glucose (Fasting)", "value": 88, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
+            { "name": "Calcium", "value": 9.5, "unit": "mg/dL", "ref": "8.5 - 10.2", "flag": "Normal" },
+            { "name": "Protein, Total", "value": 7.1, "unit": "g/dL", "ref": "6.0 - 8.3", "flag": "Normal" },
+            { "name": "ALP", "value": 70, "unit": "U/L", "ref": "44 - 147", "flag": "Normal" }
+        ],
+        "notes": "Excellent metabolic health demonstrated."
+    },
+    {
+        "reportId": "RPT-1010",
+        "patientId": "ABCD",
+        "panel": "Urinalysis, Complete",
+        "collectedOn": "2025-08-28",
+        "status": "In Progress",
+        "priority": "Low",
+        "summary": "Analysis is underway.",
+        "markers": [],
+        "notes": "Initial microscopic exam is complete, awaiting culture results."
+    },
+    {
+        "reportId": "RPT-1011",
+        "patientId": "QRST",
+        "panel": "C-Reactive Protein (CRP), High-Sensitivity",
+        "collectedOn": "2025-08-14",
+        "status": "Ready",
+        "priority": "High",
+        "summary": "CRP level is elevated, indicating inflammation.",
+        "markers": [
+            { "name": "hs-CRP", "value": 4.1, "unit": "mg/L", "ref": "< 1.0", "flag": "High" }
+        ],
+        "notes": "Elevated hs-CRP can be associated with cardiovascular risk. A discussion with your doctor about potential causes and management is important."
+    }
+];
+
+
+
+        /* ------------------------------
+           Utility: severity badge
+        --------------------------------*/
+        function priorityBadge(priority) {
+            const map = {
+                "High": "bg-[#e53e3e]/10 text-[#e53e3e] border border-[#e53e3e]/20",
+                "Medium": "bg-[#d69e2e]/10 text-[#d69e2e] border border-[#d69e2e]/20",
+                "Low": "bg-[#4da886]/10 text-[#4da886] border border-[#4da886]/20"
+            };
+            return map[priority] || map["Low"];
+        }
+
+        /* ------------------------------
+           Modal helpers
+        --------------------------------*/
+        function showModal(id) {
+            document.getElementById(id)?.classList.remove("hidden");
+            // Accessibility: lock scroll
+            document.body.style.overflow = "hidden";
+        }
+        function hideModal(id) {
+            document.getElementById(id)?.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        function showWaitModal(message = "Fetching your lab list…") {
+            document.getElementById("waitMessage").textContent = message;
+            showModal("waitModal");
+        }
+        function hideWaitModal() { hideModal("waitModal"); }
+
+        /* ------------------------------
+           Mocked API
+        --------------------------------*/
+        async function getLabsList(patientId = 'ABCD') {
+            await new Promise(res => setTimeout(res, 800)); // simulate latency
+            return MOCK_LABS.filter(r => r.patientId === patientId);
+        }
+
+        async function getLabsResult(reportId) {
+            await new Promise(res => setTimeout(res, 400));
+            return MOCK_LABS.find(r => r.reportId === reportId);
+        }
+
+        /* ------------------------------
+           Renderers
+        --------------------------------*/
+        function renderLabsIntoMain(labs) {
+            const container = document.getElementById("labsContainer");
+            container.innerHTML = `
+        <div class="flex items-center justify-between">
+          <h2 class="text-base md:text-lg font-semibold mobile-text-base">Recent reports</h2>
+          <button class="rounded-xl px-3 py-2 text-sm text-white bg-[#1e365f] hover:brightness-110 transition focus-calm mobile-text-sm"
+                  onclick="showModal('labs-list')">Open list</button>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          ${labs.slice(0, 2).map(cardTemplate).join('')}
+        </div>
+      `;
+        }
+
+        function renderLabsList(labs) {
+            const body = document.getElementById("labsListBody");
+            body.innerHTML = labs.map(listTileTemplate).join('');
+        }
+
+        function cardTemplate(r) {
+            return `
+        <article tabindex="0"
+          class="group rounded-2xl border border-slate-200 bg-white p-4 md:p-5 shadow-sm transition
+                 hover:shadow-md hover:border-slate-300 focus-calm cursor-pointer"
+          onclick="openResult('${r.reportId}')"
+          onkeypress="(event.key==='Enter') && openResult('${r.reportId}')"
+          aria-label="${r.panel} collected ${r.collectedOn}">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-2xl bg-[#1e365f]/10 grid place-content-center mobile-icon-md">
+                <!-- blood drop icon -->
+                <svg class="h-5 w-5 text-[#1e365f] mobile-icon-sm" fill="#000000" viewBox="0 0 24 24" id="blood-plus" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path id="secondary" d="M12,13v4m2-2H10" style="fill: none; stroke: #2ca9bc; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M12,3c-4,7-6,8-6,12a6,6,0,0,0,12,0C18,11,16,10,12,3Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></g></svg>
+              </div>
+              <div>
+                <h3 class="font-semibold leading-tight mobile-text-base">${r.panel}</h3>
+                <p class="text-sm text-slate-600 mobile-text-sm">Collected on <span class="font-medium">${r.collectedOn}</span></p>
+              </div>
+            </div>
+            <span class="text-xs px-2 py-1.5 rounded-lg ${priorityBadge(r.priority)} mobile-text-sm">${r.priority} priority</span>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 mobile-text-sm">${r.summary}</p>
+          <div class="mt-4 flex items-center gap-2 text-sm mobile-text-sm">
+            <span class="inline-flex items-center gap-1.5 rounded-xl bg-slate-100 px-2 py-1">
+              <!-- Drop icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500 mobile-icon-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2s6 6.818 6 11a6 6 0 1 1-12 0c0-4.182 6-11 6-11z"/>
+              </svg>
+              ${r.status}
+            </span>
+            <span class="text-slate-400">•</span>
+            <button class="text-[#1e365f] underline-offset-2 hover:underline focus-calm mobile-text-sm"
+                    onclick="event.stopPropagation(); openResult('${r.reportId}')">View</button>
+          </div>
+        </article>
+      `;
+        }
+
+        function listTileTemplate(r) {
+            return `
+        <button class="text-left rounded-2xl border border-slate-200 bg-white p-4 md:p-5 shadow-sm transition
+                       hover:shadow-md hover:border-slate-300 focus-calm group mobile-modal-padding"
+                onclick="openResult('${r.reportId}')">
+          <div class="flex items-start justify-between">
+            <div class="flex items-start gap-3">
+              <div class="h-9 w-9 rounded-xl bg-[#1e365f]/10 grid place-content-center group-hover:scale-105 transition mobile-icon-md">
+                <!-- lab icon -->
+                <svg class="h-5 w-5 text-[#1e365f] mobile-icon-sm" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <polygon style="fill:#ADD9FF;" points="289.699,349.012 289.699,308.438 381.118,308.438 381.118,381.198 "></polygon> <rect x="289.694" y="349.01" style="fill:#C8E6FF;" width="126.638" height="120.353"></rect> <path style="fill:#94C8EF;" d="M336.162,145.04h-55.749v44.743l55.748-0.354c21.872,0,39.668,17.795,39.668,39.668v265.33 l44.388-29.111v-236.22C420.217,182.673,382.584,145.040,336.162,145.04z"></path> <rect x="225.084" y="219.278" style="fill:#C8E6FF;" width="65.105" height="37.91"></rect> <rect x="227.089" y="7.92" style="fill:#94C8EF;" width="62.246" height="54.468"></rect> <rect x="211.544" y="40.849" style="fill:#7AB6DE;" width="89.807" height="178.437"></rect> <g> <path style="fill:#4693BD;" d="M418.039,441.988c-25.726,0-46.655-20.93-46.655-46.655c0-25.725,20.929-46.655,46.655-46.655 c25.726,0,46.655,20.93,46.655,46.655S443.765,441.988,418.039,441.988z"></path> <path style="fill:#4693BD;" d="M81.458,470.233c-17.882,0-32.379,14.496-32.379,32.379l369.986,0.545v-32.924H81.458z"></path> </g> <g> <path style="fill:#1D2328;" d="M212.383,16.34h89.477c4.512,0,8.17-3.658,8.17-8.17S306.372,0,301.859,0h-89.477 c-4.512,0-8.17,3.658-8.17,8.17S207.87,16.34,212.383,16.34z"></path> <path style="fill:#1D2328;" d="M451.408,495.66h-25.121v-48.112c25.87-3.949,45.753-26.348,45.753-53.305 c0-26.956-19.883-49.356-45.753-53.305V227.606c0-50.854-41.373-92.226-92.226-92.226H310.03V40.851c0-4.512-3.658-8.17-8.17-8.17 h-89.477c-4.512,0-8.17,3.658-8.17,8.17v170.262h-2.723c-4.512,0-8.17,3.658-8.17,8.17c0,4.512,3.658,8.17,8.17,8.17h14.909v29.74 c0,4.512,3.658,8.17,8.17,8.17h65.105c4.512,0,8.17-3.658,8.17-8.17v-29.74h14.91c4.512,0,8.17-3.658,8.17-8.17 c0-4.512-3.658-8.17-8.17-8.17h-2.723V151.72h24.031c41.843,0,75.886,34.041,75.886,75.886v113.332 c-25.87,3.949-45.753,26.348-45.753,53.305c0,26.956,19.883,49.356,45.753,53.305v48.113H57.719 c3.359-9.341,12.307-16.039,22.789-16.039h304.928c4.512,0,8.17-3.658,8.17-8.17s-3.658-8.17-8.17-8.17h-87.593V319.832h67.715 v2.723c0,4.512,3.658,8.17,8.17,8.17c4.512,0,8.17-3.658,8.17-8.17v-94.95c0-26.378-21.460-47.838-47.838-47.838 c-4.512,0-8.17,3.658-8.17,8.17s3.658,8.17,8.17,8.17c17.368,0,31.498,14.13,31.498,31.498v75.886H167.745 c-4.512,0-8.17,3.658-8.17,8.17c0,4.512,3.658,8.17,8.17,8.17h113.758v109.614h-56.934c-4.512,0-8.17,3.658-8.17,8.17 s3.658,8.17,8.17,8.17h56.934v17.495H80.509c-22.358,0-40.548,18.19-40.548,40.549c0,4.512,3.658,8.17,8.17,8.17h403.277 c4.512,0,8.17-3.658,8.17-8.17S455.920,495.66,451.408,495.66z M281.503,249.024h-48.764v-21.569h48.764V249.024z M220.553,211.113 V49.021h73.136v162.092H220.553z M380.534,394.242c0-20.721,16.856-37.579,37.576-37.583c0.002,0,0.004,0,0.007,0s0.004,0,0.007,0 c20.720,0.003,37.576,16.862,37.576,37.583c0,20.723-16.860,37.583-37.583,37.583C397.393,431.825,380.534,414.966,380.534,394.242z"></path> </g> </g></svg>
+              </div>
+              <div>
+                <h4 class="font-semibold mobile-text-base">${r.panel}</h4>
+                <p class="text-sm text-slate-600 mobile-text-sm">Collected on <span class="font-medium">${r.collectedOn}</span> • ${r.status}</p>
+              </div>
+            </div>
+            <span class="text-xs px-2 py-1.5 rounded-lg ${priorityBadge(r.priority)} mobile-text-sm">${r.priority}</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 mobile-text-sm">${r.summary}</p>
+        </button>
+      `;
+        }
+
+        function renderLabResult(report) {
+            const title = document.getElementById("resultTitle");
+            const meta = document.getElementById("resultMeta");
+            const body = document.getElementById("resultBody");
+
+            title.textContent = report.panel;
+            meta.textContent = `Collected on ${report.collectedOn} • ${report.status}`;
+
+            body.innerHTML = `
+        <div class="rounded-2xl bg-slate-50/60 p-4 md:p-5 mobile-modal-padding">
+          <div class="flex items-start gap-3">
+            <div class="h-10 w-10 rounded-2xl bg-[#4da886]/15 grid place-content-center mobile-icon-md">
+              <!-- Summary icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4da886] mobile-icon-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm.75 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 10.5h2v7h-2v-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold mobile-text-base">Summary</h4>
+              <p class="text-sm text-slate-600 mobile-text-sm">${report.summary}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-3">
+          <h4 class="font-semibold mobile-text-base">Results</h4>
+          ${report.markers.map(markerTemplate).join('')}
+        </div>
+
+        <div class="rounded-2xl bg-slate-50/60 p-4 md:p-5 mobile-modal-padding">
+          <div class="flex items-start gap-3">
+            <div class="h-10 w-10 rounded-2xl grid place-content-center mobile-icon-md">
+              <!-- Note icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#1e365f] mobile-icon-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm.75 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 10.5h2v7h-2v-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold mobile-text-base">Notes</h4>
+              <p class="text-sm text-slate-600 mobile-text-sm">${report.notes}</p>
+            </div>
+          </div>
+        </div>
+      `;
+        }
+
+        function markerTemplate(m) {
+            const flagClass = m.flag === "Normal" ? "text-[#4da886]" : "text-[#e53e3e]";
+            return `
+        <div class="flex items-center justify-between py-2 border-b border-slate-100 mobile-text-sm">
+          <div>
+            <p class="font-medium">${m.name}</p>
+            <p class="text-sm text-slate-500 mobile-text-sm">Reference: ${m.ref}</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium">${m.value} ${m.unit}</p>
+            <p class="text-sm ${flagClass} mobile-text-sm">${m.flag}</p>
+          </div>
+        </div>
+      `;
+        }
+
+        /* ------------------------------
+           Event Handlers
+        --------------------------------*/
+        async function openResult(reportId) {
+            showWaitModal("Opening your lab report…");
+            const report = await getLabsResult(reportId);
+            hideWaitModal();
+            renderLabResult(report);
+            showModal("result-modal");
+        }
+
+        function openInfo() {
+            alert("This is a demo app. In a real app, this would show helpful information about lab results.");
+        }
+
+        function printResult() {
+            alert("In a real app, this would generate a PDF or trigger your browser's print dialog.");
+        }
+
+        /* ------------------------------
+           Initialize
+        --------------------------------*/
+        async function init() {
+            showWaitModal();
+            const labs = await getLabsList();
+            hideWaitModal();
+            renderLabsIntoMain(labs);
+            renderLabsList(labs);
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+
+</html>
