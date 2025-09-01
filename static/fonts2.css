@@ -1,0 +1,88 @@
+/* fonts.css */
+
+@font-face {
+    font-family: 'TiemposFine-Regular';
+    src: url('../static/fonts/TiemposFine-Regular.ttf') format('truetype'),
+         url('../static/fonts/TiemposFine-Regular.woff2') format('woff2'),
+         url('../static/fonts/TiemposFine-Regular.eot') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TiemposFine-Light';
+    src: url('../static/fonts/TiemposFine-Light.ttf') format('truetype'),
+         url('../static/fonts/TiemposFine-Light.woff2') format('woff2'),
+         url('../static/fonts/TiemposFine-LightItalic.otf') format('opentype');
+    font-weight: lighter;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TiemposText-Regular';
+    src: url('../static/fonts/tiempos-text-web-regular.eot') format('eot'),
+         url('../static/fonts/tiempos-text-web-regular.woff') format('woff'),
+         url('../static/fonts/tiempos-text-web-regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Add other fonts here if needed */
+
+/* fonts.css */
+
+/* Regular Font */
+@font-face {
+    font-family: 'TodaySansNowPro-Regular';
+    src: url('../static/fonts/TodaySansNowPro-Regular.eot'); /* IE9 */
+    src: url('../static/fonts/TodaySansNowPro-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../static/fonts/TodaySansNowPro-Regular.woff2') format('woff2'), /* Modern browsers */
+         url('../static/fonts/TodaySansNowPro-Regular.ttf') format('truetype'); /* Older browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Medium Font */
+@font-face {
+    font-family: 'TodaySansNowPro-Medium';
+    src: url('../static/fonts/TodaySansNowPro-Medium.eot'); /* IE9 */
+    src: url('../static/fonts/TodaySansNowPro-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../static/fonts/TodaySansNowPro-Medium.woff2') format('woff2'), /* Modern browsers */
+         url('../static/fonts/TodaySansNowPro-Medium.ttf') format('truetype'); /* Older browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+/* Tiempos Fine Font */
+@font-face {
+    font-family: 'TiemposFine';
+    src: url('../fonts/TiemposFine-Regular.eot'); /* EOT file for IE */
+    src: url('../fonts/TiemposFine-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/TiemposFine-Regular.woff2') format('woff2'),
+         url('../fonts/TiemposFine-Regular.woff') format('woff'),
+         url('../fonts/TiemposFine-Light.otf') format('opentype'),
+         url('../fonts/TiemposFine-LightItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Tiempos Text Font */
+@font-face {
+    font-family: 'TiemposText';
+    src: url('../fonts/tiempos-text-web-regular.eot'); /* EOT file for IE */
+    src: url('../fonts/tiempos-text-web-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/tiempos-text-web-regular.woff2') format('woff2'),
+         url('../fonts/tiempos-text-web-regular.woff') format('woff'),
+         url('../fonts/tiempos-text-web-medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Today Sans Now Pro Font */
+@font-face {
+    font-family: 'TodaySansNowPro';
+    src: url('../fonts/TodaySansNowPro-Regular.woff2') format('woff2'),
+         url('../fonts/TodaySansNowPro-Medium.eot') format('embedded-opentype'),
+         url('../fonts/TodaySansNowPro-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -103,6 +103,25 @@
             }
         }
     </style>
+
+    <head>
+        <link rel="stylesheet" href="static/fonts/fonts.css">
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+    <style>
+        span,p {
+            font-family: 'TodaySansNowPro', sans-serif !important;
+        }
+
+        h1,h2,h3,h4 {
+            font-family: 'TodaySansNowPro', sans-serif !important;
+        }
+
+        body{
+            font-family: 'TiemposFine', sans-serif !important;
+        }
+    </style>
+
 </head>
 
 <body class="min-h-screen bg-white text-[#475569] antialiased">
@@ -318,161 +337,161 @@
            Mock Data (emotionally gentle)
         --------------------------------*/
         const MOCK_LABS = [
-    {
-        "reportId": "RPT-1001",
-        "patientId": "ABCD",
-        "panel": "Complete Blood Count (CBC)",
-        "collectedOn": "2025-08-18",
-        "status": "Ready",
-        "priority": "Low",
-        "summary": "Most values are within the expected range.",
-        "markers": [
-            { "name": "WBC", "value": 6.2, "unit": "×10^3/µL", "ref": "4 - 11", "flag": "Normal" },
-            { "name": "RBC", "value": 4.8, "unit": "×10^6/µL", "ref": "4.2 - 5.9", "flag": "Normal" },
-            { "name": "Hemoglobin", "value": 12.9, "unit": "g/dL", "ref": "12 - 17.5", "flag": "Normal" },
-            { "name": "Platelets", "value": 150, "unit": "×10^3/µL", "ref": "150 - 450", "flag": "Normal" }
-        ],
-        "notes": "Everything looks reassuring today."
-    },
-    {
-        "reportId": "RPT-1002",
-        "patientId": "ABCD",
-        "panel": "Lipid Profile",
-        "collectedOn": "2025-08-11",
-        "status": "Ready",
-        "priority": "Medium",
-        "summary": "Cholesterol slightly above target. Lifestyle tweaks can help.",
-        "markers": [
-            { "name": "Total Cholesterol", "value": 205, "unit": "mg/dL", "ref": "< 200", "flag": "Slightly high" },
-            { "name": "HDL", "value": 58, "unit": "mg/dL", "ref": "≥ 40", "flag": "Normal" },
-            { "name": "LDL", "value": 132, "unit": "mg/dL", "ref": "< 100", "flag": "Moderately high" },
-            { "name": "Triglycerides", "value": 138, "unit": "mg/dL", "ref": "< 150", "flag": "Normal" }
-        ],
-        "notes": "Consider gentle daily movement and balanced meals. Your clinician can personalize guidance."
-    },
-    {
-        "reportId": "RPT-1003",
-        "patientId": "ABCD",
-        "panel": "Basic Metabolic Panel (BMP)",
-        "collectedOn": "2025-07-30",
-        "status": "Ready",
-        "priority": "Low",
-        "summary": "Kidney and electrolyte values are steady.",
-        "markers": [
-            { "name": "Glucose (Fasting)", "value": 92, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
-            { "name": "Sodium", "value": 139, "unit": "mmol/L", "ref": "135 - 145", "flag": "Normal" },
-            { "name": "Potassium", "value": 4.3, "unit": "mmol/L", "ref": "3.5 - 5.1", "flag": "Normal" },
-            { "name": "Creatinine", "value": 0.91, "unit": "mg/dL", "ref": "0.6 - 1.3", "flag": "Normal" }
-        ],
-        "notes": "Keep up your hydration routine."
-    },
-    {
-        "reportId": "RPT-1004",
-        "patientId": "ABCD",
-        "panel": "HbA1c",
-        "collectedOn": "2025-06-22",
-        "status": "Ready",
-        "priority": "High",
-        "summary": "A1c suggests glucose has been higher than desired recently.",
-        "markers": [
-            { "name": "HbA1c", "value": 7.3, "unit": "%", "ref": "< 5.7", "flag": "High" }
-        ],
-        "notes": "This result deserves attention, but there are many supportive steps. Your care team can help craft a gentle plan."
-    },
-    {
-        "reportId": "RPT-1005",
-        "patientId": "EFGH",
-        "panel": "Thyroid Function Test",
-        "collectedOn": "2025-08-25",
-        "status": "Ready",
-        "priority": "Medium",
-        "summary": "TSH is elevated, suggesting a potential underactive thyroid.",
-        "markers": [
-            { "name": "TSH", "value": 6.8, "unit": "mIU/L", "ref": "0.4 - 4.0", "flag": "High" },
-            { "name": "Free T4", "value": 0.9, "unit": "ng/dL", "ref": "0.8 - 1.8", "flag": "Normal" }
-        ],
-        "notes": "Follow-up testing may be recommended to confirm diagnosis. Your clinician will discuss next steps."
-    },
-    {
-        "reportId": "RPT-1006",
-        "patientId": "IJKL",
-        "panel": "Liver Function Test (LFT)",
-        "collectedOn": "2025-08-20",
-        "status": "Ready",
-        "priority": "Low",
-        "summary": "Liver enzymes are within normal limits.",
-        "markers": [
-            { "name": "ALT (SGPT)", "value": 25, "unit": "U/L", "ref": "7 - 56", "flag": "Normal" },
-            { "name": "AST (SGOT)", "value": 22, "unit": "U/L", "ref": "10 - 40", "flag": "Normal" },
-            { "name": "Bilirubin, Total", "value": 0.8, "unit": "mg/dL", "ref": "0.1 - 1.2", "flag": "Normal" }
-        ],
-        "notes": "Results indicate healthy liver function at this time."
-    },
-    {
-        "reportId": "RPT-1007",
-        "patientId": "ABCD",
-        "panel": "Vitamin D, 25-Hydroxy",
-        "collectedOn": "2025-05-15",
-        "status": "Ready",
-        "priority": "Medium",
-        "summary": "Vitamin D levels are insufficient.",
-        "markers": [
-            { "name": "Vitamin D, 25-OH", "value": 18, "unit": "ng/mL", "ref": "30 - 100", "flag": "Low" }
-        ],
-        "notes": "Supplementation may be beneficial. Please consult with your provider for appropriate dosage."
-    },
-    {
-        "reportId": "RPT-1008",
-        "patientId": "MNOP",
-        "panel": "Iron Panel",
-        "collectedOn": "2025-08-01",
-        "status": "Pending",
-        "priority": "Low",
-        "summary": "Results are not yet available.",
-        "markers": [],
-        "notes": "The sample is currently being processed by the lab."
-    },
-    {
-        "reportId": "RPT-1009",
-        "patientId": "EFGH",
-        "panel": "Comprehensive Metabolic Panel (CMP)",
-        "collectedOn": "2025-07-10",
-        "status": "Ready",
-        "priority": "Low",
-        "summary": "All metabolic markers, including liver and kidney function, are within normal ranges.",
-        "markers": [
-            { "name": "Glucose (Fasting)", "value": 88, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
-            { "name": "Calcium", "value": 9.5, "unit": "mg/dL", "ref": "8.5 - 10.2", "flag": "Normal" },
-            { "name": "Protein, Total", "value": 7.1, "unit": "g/dL", "ref": "6.0 - 8.3", "flag": "Normal" },
-            { "name": "ALP", "value": 70, "unit": "U/L", "ref": "44 - 147", "flag": "Normal" }
-        ],
-        "notes": "Excellent metabolic health demonstrated."
-    },
-    {
-        "reportId": "RPT-1010",
-        "patientId": "ABCD",
-        "panel": "Urinalysis, Complete",
-        "collectedOn": "2025-08-28",
-        "status": "In Progress",
-        "priority": "Low",
-        "summary": "Analysis is underway.",
-        "markers": [],
-        "notes": "Initial microscopic exam is complete, awaiting culture results."
-    },
-    {
-        "reportId": "RPT-1011",
-        "patientId": "QRST",
-        "panel": "C-Reactive Protein (CRP), High-Sensitivity",
-        "collectedOn": "2025-08-14",
-        "status": "Ready",
-        "priority": "High",
-        "summary": "CRP level is elevated, indicating inflammation.",
-        "markers": [
-            { "name": "hs-CRP", "value": 4.1, "unit": "mg/L", "ref": "< 1.0", "flag": "High" }
-        ],
-        "notes": "Elevated hs-CRP can be associated with cardiovascular risk. A discussion with your doctor about potential causes and management is important."
-    }
-];
+            {
+                "reportId": "RPT-1001",
+                "patientId": "ABCD",
+                "panel": "Complete Blood Count (CBC)",
+                "collectedOn": "2025-08-18",
+                "status": "Ready",
+                "priority": "Low",
+                "summary": "Most values are within the expected range.",
+                "markers": [
+                    { "name": "WBC", "value": 6.2, "unit": "×10^3/µL", "ref": "4 - 11", "flag": "Normal" },
+                    { "name": "RBC", "value": 4.8, "unit": "×10^6/µL", "ref": "4.2 - 5.9", "flag": "Normal" },
+                    { "name": "Hemoglobin", "value": 12.9, "unit": "g/dL", "ref": "12 - 17.5", "flag": "Normal" },
+                    { "name": "Platelets", "value": 150, "unit": "×10^3/µL", "ref": "150 - 450", "flag": "Normal" }
+                ],
+                "notes": "Everything looks reassuring today."
+            },
+            {
+                "reportId": "RPT-1002",
+                "patientId": "ABCD",
+                "panel": "Lipid Profile",
+                "collectedOn": "2025-08-11",
+                "status": "Ready",
+                "priority": "Medium",
+                "summary": "Cholesterol slightly above target. Lifestyle tweaks can help.",
+                "markers": [
+                    { "name": "Total Cholesterol", "value": 205, "unit": "mg/dL", "ref": "< 200", "flag": "Slightly high" },
+                    { "name": "HDL", "value": 58, "unit": "mg/dL", "ref": "≥ 40", "flag": "Normal" },
+                    { "name": "LDL", "value": 132, "unit": "mg/dL", "ref": "< 100", "flag": "Moderately high" },
+                    { "name": "Triglycerides", "value": 138, "unit": "mg/dL", "ref": "< 150", "flag": "Normal" }
+                ],
+                "notes": "Consider gentle daily movement and balanced meals. Your clinician can personalize guidance."
+            },
+            {
+                "reportId": "RPT-1003",
+                "patientId": "ABCD",
+                "panel": "Basic Metabolic Panel (BMP)",
+                "collectedOn": "2025-07-30",
+                "status": "Ready",
+                "priority": "Low",
+                "summary": "Kidney and electrolyte values are steady.",
+                "markers": [
+                    { "name": "Glucose (Fasting)", "value": 92, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
+                    { "name": "Sodium", "value": 139, "unit": "mmol/L", "ref": "135 - 145", "flag": "Normal" },
+                    { "name": "Potassium", "value": 4.3, "unit": "mmol/L", "ref": "3.5 - 5.1", "flag": "Normal" },
+                    { "name": "Creatinine", "value": 0.91, "unit": "mg/dL", "ref": "0.6 - 1.3", "flag": "Normal" }
+                ],
+                "notes": "Keep up your hydration routine."
+            },
+            {
+                "reportId": "RPT-1004",
+                "patientId": "ABCD",
+                "panel": "HbA1c",
+                "collectedOn": "2025-06-22",
+                "status": "Ready",
+                "priority": "High",
+                "summary": "A1c suggests glucose has been higher than desired recently.",
+                "markers": [
+                    { "name": "HbA1c", "value": 7.3, "unit": "%", "ref": "< 5.7", "flag": "High" }
+                ],
+                "notes": "This result deserves attention, but there are many supportive steps. Your care team can help craft a gentle plan."
+            },
+            {
+                "reportId": "RPT-1005",
+                "patientId": "EFGH",
+                "panel": "Thyroid Function Test",
+                "collectedOn": "2025-08-25",
+                "status": "Ready",
+                "priority": "Medium",
+                "summary": "TSH is elevated, suggesting a potential underactive thyroid.",
+                "markers": [
+                    { "name": "TSH", "value": 6.8, "unit": "mIU/L", "ref": "0.4 - 4.0", "flag": "High" },
+                    { "name": "Free T4", "value": 0.9, "unit": "ng/dL", "ref": "0.8 - 1.8", "flag": "Normal" }
+                ],
+                "notes": "Follow-up testing may be recommended to confirm diagnosis. Your clinician will discuss next steps."
+            },
+            {
+                "reportId": "RPT-1006",
+                "patientId": "IJKL",
+                "panel": "Liver Function Test (LFT)",
+                "collectedOn": "2025-08-20",
+                "status": "Ready",
+                "priority": "Low",
+                "summary": "Liver enzymes are within normal limits.",
+                "markers": [
+                    { "name": "ALT (SGPT)", "value": 25, "unit": "U/L", "ref": "7 - 56", "flag": "Normal" },
+                    { "name": "AST (SGOT)", "value": 22, "unit": "U/L", "ref": "10 - 40", "flag": "Normal" },
+                    { "name": "Bilirubin, Total", "value": 0.8, "unit": "mg/dL", "ref": "0.1 - 1.2", "flag": "Normal" }
+                ],
+                "notes": "Results indicate healthy liver function at this time."
+            },
+            {
+                "reportId": "RPT-1007",
+                "patientId": "ABCD",
+                "panel": "Vitamin D, 25-Hydroxy",
+                "collectedOn": "2025-05-15",
+                "status": "Ready",
+                "priority": "Medium",
+                "summary": "Vitamin D levels are insufficient.",
+                "markers": [
+                    { "name": "Vitamin D, 25-OH", "value": 18, "unit": "ng/mL", "ref": "30 - 100", "flag": "Low" }
+                ],
+                "notes": "Supplementation may be beneficial. Please consult with your provider for appropriate dosage."
+            },
+            {
+                "reportId": "RPT-1008",
+                "patientId": "MNOP",
+                "panel": "Iron Panel",
+                "collectedOn": "2025-08-01",
+                "status": "Pending",
+                "priority": "Low",
+                "summary": "Results are not yet available.",
+                "markers": [],
+                "notes": "The sample is currently being processed by the lab."
+            },
+            {
+                "reportId": "RPT-1009",
+                "patientId": "EFGH",
+                "panel": "Comprehensive Metabolic Panel (CMP)",
+                "collectedOn": "2025-07-10",
+                "status": "Ready",
+                "priority": "Low",
+                "summary": "All metabolic markers, including liver and kidney function, are within normal ranges.",
+                "markers": [
+                    { "name": "Glucose (Fasting)", "value": 88, "unit": "mg/dL", "ref": "70 - 99", "flag": "Normal" },
+                    { "name": "Calcium", "value": 9.5, "unit": "mg/dL", "ref": "8.5 - 10.2", "flag": "Normal" },
+                    { "name": "Protein, Total", "value": 7.1, "unit": "g/dL", "ref": "6.0 - 8.3", "flag": "Normal" },
+                    { "name": "ALP", "value": 70, "unit": "U/L", "ref": "44 - 147", "flag": "Normal" }
+                ],
+                "notes": "Excellent metabolic health demonstrated."
+            },
+            {
+                "reportId": "RPT-1010",
+                "patientId": "ABCD",
+                "panel": "Urinalysis, Complete",
+                "collectedOn": "2025-08-28",
+                "status": "In Progress",
+                "priority": "Low",
+                "summary": "Analysis is underway.",
+                "markers": [],
+                "notes": "Initial microscopic exam is complete, awaiting culture results."
+            },
+            {
+                "reportId": "RPT-1011",
+                "patientId": "QRST",
+                "panel": "C-Reactive Protein (CRP), High-Sensitivity",
+                "collectedOn": "2025-08-14",
+                "status": "Ready",
+                "priority": "High",
+                "summary": "CRP level is elevated, indicating inflammation.",
+                "markers": [
+                    { "name": "hs-CRP", "value": 4.1, "unit": "mg/L", "ref": "< 1.0", "flag": "High" }
+                ],
+                "notes": "Elevated hs-CRP can be associated with cardiovascular risk. A discussion with your doctor about potential causes and management is important."
+            }
+        ];
 
 
 
@@ -680,8 +699,11 @@
             alert("This is a demo app. In a real app, this would show helpful information about lab results.");
         }
 
+        // function printResult() {
+        //     alert("In a real app, this would generate a PDF or trigger your browser's print dialog.");
+        // }
         function printResult() {
-            alert("In a real app, this would generate a PDF or trigger your browser's print dialog.");
+                    window.print();
         }
 
         /* ------------------------------
